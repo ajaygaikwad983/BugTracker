@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracking Software</title>
+    <link rel="shortcut icon" href="Images/favicon.ico">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1073525853347-ich6csos3jb142a8ve6qu3r0vtr8i5uo.apps.googleusercontent.com">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container-fluid {
+            width: 1348px;
+            height: 637px;
+            background: linear-gradient(rgb(241, 189, 189),white);
+        }
+        header {
+            padding: 20px 0px 10px 20px;
+            background-color: white;
+        }
+        header img {
+            float: left;
+            height: 44px;
+            height: 44px;
+        }
+        header span {
+            letter-spacing: 2px;
+            margin-left: 5px;
+            font-size: 1.5em;
+        }
+        .headings {
+            width: 790px;
+            height: 250px;
+            margin-top: 100px;
+            line-height: 1.5em;
+        }
+        form {
+            width: 340px;
+            margin: 100px auto auto auto;
+            font-size: 0.8em;
+        }
+        form a:link {
+            color: black;
+            text-decoration: underline;
+        }
+        form button {
+            margin-top: 25px;
+        }
+        #para  {
+            margin-top: 10px;
+            text-align: right;
+        }
+        header .btn {
+            float: right;
+            width: 100px;
+            margin-right: 50px;
+        }
+    </style>
+    <script>
+        loginDetails=[
+    {
+        username:"Admin",
+        password:"admin@123"
+    },
+    {
+        username:"Developer",
+        password:"developer@123"
+    },
+    {
+        username:"User",
+        password:"user@123"
+    }
+    ];
+    function onSignIn(googleUser){
+        window.location = "home.html";
+    }
+    </script>
+    <script>
+        $(function(){
+            $(".frmLogin").css("display","none");
+            $("#btnSignup").click(function(){
+                $(".frmLogin").css("display","none");
+                $(".frmSignup").css("display","block");
+            });
+            $("#btnLogin").click(function(){
+                $(".frmLogin").css("display","block");
+                $(".frmSignup").css("display","none");
+            });
+            $("#username").change(function(){
+                $("#password").change(function(){
+                        $("#signUp").removeAttr("disabled","disabled");
+                        var Username=$("#username").val();
+                        var Password=$("#password").val();
+                        $("#signUp").click(function(){
+                            for(var i=0;i<loginDetails.length;i++){
+                                if (loginDetails[i].username == Username && loginDetails[i].password == Password){
+                                    alert("Account already exist. Try logging in");
+                                    return;
+                                }
+                            }
+                            var object = {
+                                username:Username,
+                                password:Password
+                            }
+                            loginDetails.push(object);
+                            alert("New account has been created, try loggin in");
+                            $(".frmLogin").css("display","block");
+                            $(".frmSignup").css("display","none");
+                        });
+                });
+            });
+            $("#loginId").change(function(){
+                $("#loginPwd").change(function(){
+                    $("#Login").removeAttr("disabled","disabled");
+                    $("#Login").click(function(){
+                        var Username=$("#loginId").val();
+                        var Password=$("#loginPwd").val();
+                        for(var i=0;i<loginDetails.length;i++){
+                            if (loginDetails[i].username == Username && loginDetails[i].password == Password){
+                                window.location = "home.html";
+                                return;
+                            }
+                        }
+                        alert("Wrong Id and Password");
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="row">
+            <div class="col">
+                <img src="Images/bugicon.png" alt="">
+                <span>BugTracker</span>
+            </div>
+            <div class="col">
+                <button id="btnLogin" type="button" class="btn btn-danger text-white form-control">Login</button>
+                <button id="btnSignup" type="button" class="btn btn-danger text-white form-control">Sign up</button>
+            <div>
+        </header>
+        <div class="row">
+            <div class="col headings">
+                <h1>Ship Great Software With Automated Bugtracking</h1>
+                <p>A simple, fast and scalable bug tracking software that helps you manage bugs easily and deliver great products on time.</p>
+            </div>
+            <div class="col form ">
+                <form class="form form-group frmSignup">
+                    <h5>Swat your bugs now</h5>
+                    <br>
+                    <input type="text" name="CmpName" placeholder="Company Name" class="form-control">
+                    <br>
+                    <input type="text" id="username" name="email" placeholder="Email" class="form-control" required>
+                    <br>
+                    <input type="text" id="password" name="pwdText" placeholder="Password" class="form-control" required>
+                    <br>
+                    <input type="checkbox" name="termsCondition" required>
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a>
+                    <button id="signUp" type="button" class="btn btn-danger text-white form-control" disabled>SIGN UP FOR FREE</button>
+                    
+                    <div id="para" class="row">
+                        <div class="col-5">or sign in by using</div>
+                        <div class="g-signin2 col-4" data-onsuccess="onSignIn"></div>
+                        <div class="col-3"><a href="#"><img src="Images/facebook.svg" width="24px" height="24px"></a></div>
+                    </div>
+                </form>
+                <form class="form form-group frmLogin">
+                    <h5>Login</h5>
+                    <br>
+                    <input type="text" id="loginId" name="email" placeholder="Email" class="form-control" required>
+                    <br>
+                    <input type="text" id="loginPwd" name="pwdText" placeholder="Password" class="form-control" required>
+                    <br>
+                    <input type="checkbox" name="termsCondition">
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a>
+                    <button id="Login" type="button" class="btn btn-danger text-white form-control" disabled>Login</button>
+                    
+                    <div id="para" class="row">
+                        <div class="col-5">or sign in by using</div>
+                        <div class="g-signin2 col-4" data-onsuccess="onSignIn"></div>
+                        <div class="col-3"><a href="#"><img src="Images/facebook.svg" width="24px" height="24px"></a></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
